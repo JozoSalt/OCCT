@@ -45,7 +45,7 @@ BOOL CImportExportApp::InitInstance()
   }
 
   SampleName = "ImportExport"; //for about dialog
-  SetSamplePath (L"..\\..\\05_ImportExport");
+  SetSamplePath (L"..\\..\\03_ImportExport");
 
   AfxEnableControlContainer();
 
@@ -69,7 +69,7 @@ BOOL CImportExportApp::InitInstance()
     pDocTemplate = new CMultiDocTemplate(
 		IDR_3DTYPE,
 		RUNTIME_CLASS(CImportExportDoc),
-		RUNTIME_CLASS(OCC_3dChildFrame), 
+		RUNTIME_CLASS(OCC_3dChildFrame),
 		RUNTIME_CLASS(OCC_3dView));
 	AddDocTemplate(pDocTemplate);
 
@@ -94,27 +94,27 @@ BOOL CImportExportApp::InitInstance()
 	return TRUE;
 }
 
-CDocument* CImportExportApp::OpenDocumentFile(LPCTSTR lpszFileName) 
+CDocument* CImportExportApp::OpenDocumentFile(LPCTSTR lpszFileName)
 {
 	CFile cf;
-	
-	if (!cf.Open(lpszFileName,CFile::modeReadWrite)){ 
+
+	if (!cf.Open(lpszFileName,CFile::modeReadWrite)){
 		AfxMessageBox (L"File not found!");
 		return NULL;
 	}
 	cf.Close();
-	return CWinApp::OpenDocumentFile(lpszFileName); 
+	return CWinApp::OpenDocumentFile(lpszFileName);
 }
 
-void CImportExportApp::OnFileOpen() 
+void CImportExportApp::OnFileOpen()
 {
   CFileDialog dlg(TRUE,
 				  NULL,
 				  NULL,
 				  OFN_HIDEREADONLY | OFN_FILEMUSTEXIST,
-				  NULL, 
+				  NULL,
 				  NULL );
-  
+
 
 	CString initdir;
 	initdir.GetEnvironmentVariable (L"CSF_OCCTDataPath");
@@ -139,7 +139,7 @@ void CImportExportApp::OnFileOpen()
 		strFilter += L'*';
 		strFilter += strFilterExt;
 		strFilter += L'\0';  // next string please
-		dlg.m_ofn.nMaxCustFilter++;		
+		dlg.m_ofn.nMaxCustFilter++;
 	}
 	// append the "*.*" all files filter
 	CString allFilter;
@@ -151,8 +151,8 @@ void CImportExportApp::OnFileOpen()
 	dlg.m_ofn.nMaxCustFilter++;
 	dlg.m_ofn.lpstrFilter = strFilter;
 
-  if (dlg.DoModal() == IDOK) 
+  if (dlg.DoModal() == IDOK)
   {
 	AfxGetApp()->OpenDocumentFile(dlg.GetPathName());
-  }	
+  }
 }
